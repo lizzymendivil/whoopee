@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { QuizService } from './quiz.service';
+import { QuizInterface } from './quiz';
 
 @Component({
   selector: 'app-quiz',
@@ -9,19 +10,21 @@ import { QuizService } from './quiz.service';
   styleUrls: ['./quiz.component.css']
 })
 export class QuizComponent implements OnInit {
-  
+
   constructor(private quizService: QuizService, private formBuilder: FormBuilder) { }
-  public quiz = '';
-  public quizzes = [];
+  public quizz: QuizInterface[];
+  public question: {};
   quizzForm: FormGroup;
 
   ngOnInit() {
     this.quizzForm = this.formBuilder.group({
       option: ['', Validators.required]
     });
-    this.quizService.getQuiz().subscribe(quizzes => {
-      console.info('quizzes', quizzes);
-      this.quizzes = quizzes;
+    this.quizService.getQuiz().subscribe(quizz => {
+      console.log('quiz', quizz);
+      this.quizz = quizz;
+      this.question = quizz[0];
+      console.log('question', this.question);
     });
   }
 

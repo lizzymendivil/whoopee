@@ -1,12 +1,18 @@
-<form *ngFor="let q of quizzes" [formGroup]="quizzForm" (ngSubmit)="onSubmit()">
-  <p>
-      {{ q.question }}
-  </p>
-  <div class="form-check" *ngFor="let option of q.options">
-    <input formControlName="option" name="option" class="form-check-input" type="radio">
-    <label class="form-check-label">
-      {{ option.answer }}
-    </label>
+<form [formGroup]="quizzForm" (ngSubmit)="onSubmit()">
+  <div *ngFor="let q of quizz">
+    <p>
+        {{ q.question }}
+    </p>
+    <div class="form-check" *ngFor="let option of q.options">
+      <input [id]="option.key"
+             formControlName="option"
+             name="option"
+             class="form-check-input"
+             type="radio">
+      <label class="form-check-label">
+        {{ option.answer }}
+      </label>
+    </div>
+    <button type="submit">Submit</button>
   </div>
-  <button type="submit">Submit</button>
 </form>
